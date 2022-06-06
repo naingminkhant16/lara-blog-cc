@@ -1,0 +1,16 @@
+body {
+    background-color: white;
+    max-width: 600px;
+    margin: 0 auto;
+}
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+nav li {
+    display: inline;
+    padding-right: 10px;
+}
