@@ -1,24 +1,15 @@
 <?php
 
+use App\Http\Controllers\BlogController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Blog;
 use App\Models\Category;
 use App\Models\User;
 
 
-Route::get('/', function () {
-    return view('blogs', [
-        "blogs" => Blog::latest()->get(),
-        "categories" => Category::all()
-    ]); //eager load
-});
+Route::get('/', [BlogController::class, 'index']);
 
-Route::get('/blogs/{blog:slug}', function (Blog $blog) { //Blog::findOrFail(id)
-    return view('blog', [
-        "blog" => $blog,
-        "randomBlogs" => Blog::inRandomOrder()->take(3)->get()
-    ]);
-})->where('blog', '[A-Za-z-_\d]+'); //wildcard-constraint
+Route::get('/blogs/{blog:slug}', [BlogController::class, 'show']);
 
 Route::get('/users/{user:username}', function (User $user) {
     return view('blogs', [

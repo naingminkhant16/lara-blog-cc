@@ -1,4 +1,4 @@
-@props(['blogs','cats','currentCategory'])
+@props(['blogs','categories','currentCategory'])
 <section class="container text-center" id="blogs">
     <h1 class="display-5 fw-bold mb-4">Blogs</h1>
     <div class="">
@@ -8,7 +8,7 @@
                 {{isset($currentCategory)?$currentCategory->name:" Filter By Categories";}}
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                @foreach ($cats as $cat)
+                @foreach ($categories as $cat)
                 <li><a class="dropdown-item" href="/categories/{{$cat->slug}}">{{$cat->name}}</a></li>
                 @endforeach
             </ul>
@@ -25,17 +25,24 @@
     </div>
     <form action="" class="my-3">
         <div class="input-group mb-3">
-            <input type="text" autocomplete="false" class="form-control" placeholder="Search Blogs..." />
+            <input name="search" type="text" autocomplete="false" class="form-control" value="{{request('search')}}"
+                placeholder="Search Blogs..." />
             <button class="input-group-text bg-primary text-light" id="basic-addon2" type="submit">
                 Search
             </button>
         </div>
     </form>
     <div class="row">
-        @foreach ($blogs as $blog)
+
+        @forelse ($blogs as $blog)
         <div class="col-md-4 mb-4">
             <x-blog-card :blog="$blog" />
         </div>
-        @endforeach
+        @empty
+        <h4 class="text-center my-4">No Blogs Found!</h4>
+        @endforelse ($blogs as $blog)
+
+
+
     </div>
 </section>
