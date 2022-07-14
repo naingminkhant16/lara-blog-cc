@@ -43,8 +43,21 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
     public function blogs()
     {
         return $this->hasMany(Blog::class);
+    }
+
+    //laravel 8 accessors
+    public function getNameAttribute($value)
+    {
+        return ucwords($value);
+    }
+
+    //laravel 8  Mutators
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
     }
 }
