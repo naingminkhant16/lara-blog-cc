@@ -54,6 +54,7 @@ class AuthController extends Controller
             'email.required' => "Your Email is required",
             'email.exists' => "Email doesn't exist!"
         ]);
+
         if (Auth::attempt($formData))
             return redirect('/')->with('status', "Welcome User " . Auth::user()->name);
         else

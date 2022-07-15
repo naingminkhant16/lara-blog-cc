@@ -8,12 +8,12 @@ Route::get('/', [BlogController::class, 'index']);
 
 Route::get('/blogs/{blog:slug}', [BlogController::class, 'show']);
 
-Route::get('/register', [AuthController::class, 'create'])->name('register.create');
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
 
-Route::post('/register', [AuthController::class, 'store'])->name('register.store');
+Route::middleware('guest')->group(function () {
+    Route::get('/register', [AuthController::class, 'create']);
+    Route::post('/register', [AuthController::class, 'store']);
 
-Route::post('/logout', [AuthController::class, 'logout'])->name('register.logout');
-
-Route::get('/login', [AuthController::class, 'login'])->name('register.login');
-
-Route::post('/login', [AuthController::class, 'postLogin'])->name('register.postLogin');
+    Route::get('/login', [AuthController::class, 'login']);
+    Route::post('/login', [AuthController::class, 'postLogin'])->name('register.postLogin');
+});
