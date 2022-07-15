@@ -21,7 +21,7 @@
             </div>
         </div>
     </div>
-
+    <x-comments :comments="$blog->comments" />
     <x-subscribe />
     <x-blogs_you_may_like :randomBlogs="$randomBlogs" />
 
