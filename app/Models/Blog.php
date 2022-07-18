@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Blog extends Model
 {
     use HasFactory;
-    protected $guarded = ['id'];
-    // protected $fillable = ['title', 'intro', 'body'];
 
     protected $with = ['category', 'author'];
 

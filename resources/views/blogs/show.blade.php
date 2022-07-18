@@ -21,8 +21,15 @@
             </div>
         </div>
     </div>
+    {{-- comment form --}}
+    <x-comment-form :blog="$blog" />
+
+    @if ($blog->comments()->count())
     <x-comments :comments="$blog->comments" />
+    @endif
+
     <x-subscribe />
+
     <x-blogs_you_may_like :randomBlogs="$randomBlogs" />
 
 </x-layout>
