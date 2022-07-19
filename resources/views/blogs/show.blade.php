@@ -14,6 +14,15 @@
                             href="/categories/{{$blog->category->slug}}">{{$blog->category->name}}</a>
                     </div>
                     <div class="text-black-50">{{$blog->created_at->diffForHumans()}}</div>
+                    <div class="">
+                        <form action="" method="POST">
+                            @if (Auth::user()->isSubscribed($blog))
+                            <button class="btn btn-danger">Unubscribe</button>
+                            @else
+                            <button class="btn btn-warning">Subscribe</button>
+                            @endif
+                        </form>
+                    </div>
                 </div>
                 <p class="lh-md mt-3">
                     {{$blog->body}}
@@ -25,10 +34,9 @@
     <x-comment-form :blog="$blog" />
 
     @if ($blog->comments()->count())
-    <x-comments :comments="$blog->comments" />
+    <x-comments :comments="$blog->comments()->latest()->paginate(3)" />
     @endif
 
-    <x-subscribe />
 
     <x-blogs_you_may_like :randomBlogs="$randomBlogs" />
 

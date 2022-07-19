@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
-    public function store(Blog $blog)
+    public function store(Request $request, Blog $blog)
     {
-        $formData =  request()->validate([
+        $formData =  $request->validate([
             'comment' => "required|min:3"
         ]);
 
@@ -19,6 +19,6 @@ class CommentController extends Controller
             'user_id' => Auth::id()
         ]);
 
-        return back();
+        return redirect("blogs/" . $blog->slug);
     }
 }

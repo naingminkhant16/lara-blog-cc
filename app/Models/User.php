@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -52,5 +53,15 @@ class User extends Authenticatable
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = bcrypt($value);
+    }
+
+    public function subscribedBlog()
+    {
+        return $this->belongsToMany(Blog::class);
+    }
+
+    public function isSubscribed($blog)
+    {
+        return  Auth::user()->subscribedBlog && Auth::user()->subscribedBlog->contains($blog->id);
     }
 }
