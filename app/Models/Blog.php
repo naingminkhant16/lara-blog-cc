@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Blog extends Model
 {
@@ -19,21 +20,18 @@ class Blog extends Model
                     ->orWhere('body', 'LIKE', "%" . $search . "%");
             });
         });
-        // $query->dd();
 
         $query->when($filter['category'] ?? false, function ($query, $category) {
             $query->whereHas('category', function ($query) use ($category) {
                 $query->where('slug', $category);
             });
         });
-        // $query->dd();
 
         $query->when($filter['username'] ?? false, function ($query, $username) {
             $query->whereHas('author', function ($query) use ($username) {
                 $query->where('name', $username);
             });
         });
-        // $query->dd();
     }
 
     public function category()
@@ -54,5 +52,15 @@ class Blog extends Model
     public function subscribers()
     {
         return $this->belongsToMany(User::class);
+    }
+
+    public function subscribe()
+    {
+        $this->subscribers()->attach(Auth::id());
+    }
+
+    public function unSubscribe()
+    {
+        $this->subscribers()->detach(Auth::id());
     }
 }

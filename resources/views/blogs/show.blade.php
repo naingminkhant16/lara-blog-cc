@@ -14,8 +14,10 @@
                             href="/categories/{{$blog->category->slug}}">{{$blog->category->name}}</a>
                     </div>
                     <div class="text-black-50">{{$blog->created_at->diffForHumans()}}</div>
+                    @auth
                     <div class="">
-                        <form action="" method="POST">
+                        <form action="/blogs/{{$blog->slug}}/subscription" method="POST">
+                            @csrf
                             @if (Auth::user()->isSubscribed($blog))
                             <button class="btn btn-danger">Unubscribe</button>
                             @else
@@ -23,6 +25,7 @@
                             @endif
                         </form>
                     </div>
+                    @endauth
                 </div>
                 <p class="lh-md mt-3">
                     {{$blog->body}}

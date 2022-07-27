@@ -21,3 +21,5 @@ Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'login']);
     Route::post('/login', [AuthController::class, 'postLogin'])->name('register.postLogin');
 });
+
+Route::post('/blogs/{blog:slug}/subscription', [BlogController::class, 'subscriptionHandler']);
