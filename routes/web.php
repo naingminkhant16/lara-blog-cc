@@ -23,3 +23,6 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::post('/blogs/{blog:slug}/subscription', [BlogController::class, 'subscriptionHandler']);
+
+Route::get('/admin/blogs/create', [BlogController::class, 'create'])->middleware('mustAdmin');
+Route::post('/admin/blogs/store', [BlogController::class, 'store'])->middleware('mustAdmin')->name('blog.store');
