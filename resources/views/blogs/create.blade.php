@@ -1,9 +1,9 @@
-<x-layout>
-    <h1 class="my-3 text-center">
+<x-admin-layout>
+    {{-- <h1 class="my-3 text-center">
         Create Blog
-    </h1>
+    </h1> --}}
     <div class="row">
-        <div class="col-md-6 mx-auto">
+        <div class="col">
             <x-card-wrapper>
                 <form action="{{route('blog.store')}}" method="POST" enctype="multipart/form-data">
                     @csrf
@@ -27,4 +27,4 @@
             </x-card-wrapper>
         </div>
     </div>
-</x-layout>
+</x-admin-layout>

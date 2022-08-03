@@ -5,6 +5,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CommentController;
 use App\Models\Comment;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminBlogController;
 
 Route::get('/', [BlogController::class, 'index']);
 
@@ -24,5 +25,8 @@ Route::middleware('guest')->group(function () {
 
 Route::post('/blogs/{blog:slug}/subscription', [BlogController::class, 'subscriptionHandler']);
 
-Route::get('/admin/blogs/create', [BlogController::class, 'create'])->middleware('mustAdmin');
-Route::post('/admin/blogs/store', [BlogController::class, 'store'])->middleware('mustAdmin')->name('blog.store');
+//admin
+Route::get('/admin/blogs', [AdminBlogController::class, 'index'])->middleware('mustAdmin');
+Route::get('/admin/blogs/create', [AdminBlogController::class, 'create'])->middleware('mustAdmin');
+Route::post('/admin/blogs/store', [AdminBlogController::class, 'store'])->middleware('mustAdmin')->name('blog.store');
+Route::delete('/admin/blogs/{blog:slug}/delete', [AdminBlogController::class, 'destory'])->middleware('mustAdmin');

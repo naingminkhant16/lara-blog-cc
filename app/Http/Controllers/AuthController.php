@@ -55,9 +55,12 @@ class AuthController extends Controller
             'email.exists' => "Email doesn't exist!"
         ]);
 
-        if (Auth::attempt($formData))
+        if (Auth::attempt($formData)) {
+            if (Auth::user()->is_admin) {
+                return redirect('/admin/blogs');
+            }
             return redirect('/')->with('status', "Welcome User " . Auth::user()->name);
-        else
+        } else
             return   redirect()->back()->withErrors(['email' => "Incorrect Credentials For This Email"]);
     }
 }
